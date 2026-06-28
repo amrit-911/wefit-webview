@@ -4,8 +4,8 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/auth-provider";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { db, storage } from "@/lib/firebase";
+import { db } from "@/lib/firebase";
+import { uploadFile } from "@/lib/services/storage.service";
 import { ArrowLeft, Camera, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -37,7 +37,7 @@ export default function UserEditProfilePage() {
 
   async function handleAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
-    if (!file || !user || !storage || !db) return;
+    if (!file || !user || !db) return;
 
     // Show local preview immediately
     const localUrl = URL.createObjectURL(file);
@@ -46,9 +46,7 @@ export default function UserEditProfilePage() {
     setError("");
 
     try {
-      const storageRef = ref(storage, `avatars/${user.uid}`);
-      await uploadBytes(storageRef, file);
-      const downloadUrl = await getDownloadURL(storageRef);
+      const { url: downloadUrl } = await uploadFile(file, "avatars", { publicId: user.uid });
       await updateDoc(doc(db, "users", user.uid), { avatar: downloadUrl });
       await refreshUserData();
       setPreviewUrl(downloadUrl);

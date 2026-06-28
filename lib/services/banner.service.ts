@@ -1,6 +1,6 @@
-import { db, storage } from "@/lib/firebase";
+import { db } from "@/lib/firebase";
 import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { uploadFile } from "@/lib/services/storage.service";
 
 const BANNER_DOC = "settings/homeBanner";
 
@@ -32,10 +32,8 @@ export async function getBannerSettings(): Promise<BannerSettings> {
 export type BannerAudience = "client" | "trainer";
 
 export async function uploadBannerForAudience(file: File, audience: BannerAudience): Promise<string> {
-  if (!storage || !db) throw new Error("Firebase not initialized");
-  const storageRef = ref(storage, `banners/home-banner-${audience}`);
-  await uploadBytes(storageRef, file);
-  const url = await getDownloadURL(storageRef);
+  if (!db) throw new Error("Firebase not initialized");
+  const { url } = await uploadFile(file, "banners", { publicId: `home-banner-${audience}` });
   const field = audience === "client" ? "clientImageUrl" : "trainerImageUrl";
   const snap = await getDoc(doc(db, BANNER_DOC));
   const existing = snap.exists() ? snap.data() : {};

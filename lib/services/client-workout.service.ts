@@ -2,8 +2,8 @@ import {
   collection, doc, getDocs, setDoc, query, where,
   serverTimestamp, Timestamp,
 } from "firebase/firestore";
-import { ref as storageRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { db, storage } from "@/lib/firebase";
+import { db } from "@/lib/firebase";
+import { uploadFile } from "@/lib/services/storage.service";
 
 /** Upload a trainer's own video for an exercise. Returns { url, storagePath }. */
 export async function uploadExerciseVideo(
@@ -11,26 +11,8 @@ export async function uploadExerciseVideo(
   file: File,
   onProgress?: (pct: number) => void
 ): Promise<{ url: string; storagePath: string }> {
-  if (!storage) throw new Error("Firebase Storage not initialized");
-  const ts = Date.now();
-  const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-  const path = `exerciseVideos/${clientId}/${ts}_${safeName}`;
-  const ref = storageRef(storage, path);
-
-  await new Promise<void>((resolve, reject) => {
-    const task = uploadBytesResumable(ref, file);
-    task.on(
-      "state_changed",
-      (snap) => {
-        if (onProgress) onProgress(Math.round((snap.bytesTransferred / snap.totalBytes) * 100));
-      },
-      reject,
-      () => resolve()
-    );
-  });
-
-  const url = await getDownloadURL(ref);
-  return { url, storagePath: path };
+  const { url, publicId } = await uploadFile(file, `exerciseVideos/${clientId}`, { onProgress });
+  return { url, storagePath: publicId };
 }
 
 

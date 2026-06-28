@@ -1,4 +1,4 @@
-import { db, storage } from "@/lib/firebase";
+import { db } from "@/lib/firebase";
 import {
   collection,
   query,
@@ -10,7 +10,7 @@ import {
   serverTimestamp,
   Timestamp,
 } from "firebase/firestore";
-import { ref as storageRef, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
+import { uploadFile, deleteFile } from "@/lib/services/storage.service";
 
 export interface GalleryPhoto {
   id: string;
@@ -22,30 +22,26 @@ export interface GalleryPhoto {
 }
 
 /**
- * Upload a photo to Firebase Storage and save metadata to Firestore.
+ * Upload a photo to storage and save metadata to Firestore.
  */
 export async function uploadGalleryPhoto(
   userId: string,
   file: File,
   date: string // YYYY-MM-DD
 ): Promise<GalleryPhoto> {
-  if (!db || !storage) throw new Error("Firebase not initialized");
+  if (!db) throw new Error("Firebase not initialized");
 
-  const timestamp = Date.now();
-  const path = `gallery/${userId}/${date}_${timestamp}_${file.name}`;
-  const ref = storageRef(storage, path);
-  await uploadBytes(ref, file);
-  const url = await getDownloadURL(ref);
+  const { url, publicId } = await uploadFile(file, `gallery/${userId}`);
 
   const docRef = await addDoc(collection(db, "gallery_photos"), {
     userId,
     url,
     date,
-    storagePath: path,
+    storagePath: publicId,
     uploadedAt: serverTimestamp(),
   });
 
-  return { id: docRef.id, userId, url, date, storagePath: path };
+  return { id: docRef.id, userId, url, date, storagePath: publicId };
 }
 
 /**
@@ -90,16 +86,16 @@ export async function getGalleryPhotos(userId: string): Promise<GalleryPhoto[]> 
 }
 
 /**
- * Delete a gallery photo from Storage and Firestore.
+ * Delete a gallery photo from storage and Firestore.
  */
 export async function deleteGalleryPhoto(
   photoId: string,
   storagePath: string
 ): Promise<void> {
-  if (!db || !storage) return;
+  if (!db) return;
   await deleteDoc(doc(db, "gallery_photos", photoId));
   try {
-    await deleteObject(storageRef(storage, storagePath));
+    await deleteFile(storagePath);
   } catch {
     // Ignore if already deleted from storage
   }

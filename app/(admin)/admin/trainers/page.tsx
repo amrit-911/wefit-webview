@@ -16,8 +16,7 @@ import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/
 import { Plus, Search, Edit, Trash2, Eye, EyeOff, X, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { storage } from "@/lib/firebase";
+import { uploadFile } from "@/lib/services/storage.service";
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
@@ -85,32 +84,17 @@ export default function TrainersPage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (!storage) {
-      toast.error("Firebase Storage not initialized.");
-      return;
-    }
-
     setUploadingField(field);
-    const storageRef = ref(storage, `trainers/${Date.now()}_${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        // Can add progress indicator here if needed
-      },
-      (error) => {
-        console.error("Upload error:", error);
-        toast.error("Failed to upload image.");
-        setUploadingField(null);
-      },
-      async () => {
-        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-        setNewTrainer((prev) => ({ ...prev, [field]: downloadURL }));
-        toast.success(`${field} uploaded successfully!`);
-        setUploadingField(null);
-      }
-    );
+    try {
+      const { url } = await uploadFile(file, "trainers");
+      setNewTrainer((prev) => ({ ...prev, [field]: url }));
+      toast.success(`${field} uploaded successfully!`);
+    } catch (error) {
+      console.error("Upload error:", error);
+      toast.error("Failed to upload image.");
+    } finally {
+      setUploadingField(null);
+    }
   };
 
   const handleSubmit = async () => {

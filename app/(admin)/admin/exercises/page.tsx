@@ -23,8 +23,7 @@ import { cn } from "@/lib/utils";
 import {
   getExercises, addExercise, updateExercise, deleteExercise, type Exercise,
 } from "@/lib/services/exercises.service";
-import { storage } from "@/lib/firebase";
-import { ref as storageRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { uploadFile } from "@/lib/services/storage.service";
 
 const CATEGORIES = ["Chest", "Back", "Legs", "Shoulders", "Arms", "Core", "Cardio", "Push", "Pull", "Leg", "Other"];
 
@@ -94,21 +93,6 @@ export default function ExercisesPage() {
     setOpen(true);
   }
 
-  // Upload a file to Firebase Storage with progress tracking
-  async function uploadFile(file: File, path: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-      if (!storage) return reject(new Error("Storage not initialized"));
-      const ref = storageRef(storage, path);
-      const task = uploadBytesResumable(ref, file);
-      task.on(
-        "state_changed",
-        (snap) => setUploadProgress(Math.round((snap.bytesTransferred / snap.totalBytes) * 100)),
-        reject,
-        async () => resolve(await getDownloadURL(task.snapshot.ref))
-      );
-    });
-  }
-
   async function handleSubmit() {
     if (!form.name.trim()) { toast.error("Exercise name is required."); return; }
     if (!form.category) { toast.error("Category is required."); return; }
@@ -133,10 +117,10 @@ export default function ExercisesPage() {
 
       if (videoFile) {
         toast.info("Uploading video…");
-        videoUrl = await uploadFile(videoFile, `exercises/videos/${Date.now()}_${videoFile.name}`);
+        videoUrl = (await uploadFile(videoFile, "exercises/videos", { onProgress: setUploadProgress })).url;
       }
       if (thumbFile) {
-        thumbnailUrl = await uploadFile(thumbFile, `exercises/thumbnails/${Date.now()}_${thumbFile.name}`);
+        thumbnailUrl = (await uploadFile(thumbFile, "exercises/thumbnails", { onProgress: setUploadProgress })).url;
       }
       setUploadProgress(null);
 

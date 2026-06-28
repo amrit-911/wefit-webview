@@ -8,8 +8,7 @@ import { useAuth } from "@/providers/auth-provider";
 import { submitPeriodCheckin, getPeriodCheckins, type PeriodType } from "@/lib/services/checkin.service";
 import { createPeriodCheckinNotification } from "@/lib/services/notifications.service";
 import { addGalleryPhotoRecord } from "@/lib/services/gallery.service";
-import { storage } from "@/lib/firebase";
-import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
+import { uploadFile } from "@/lib/services/storage.service";
 
 // ─── Shared helpers ────────────────────────────────────────────────────────
 
@@ -139,16 +138,13 @@ function PeriodCheckinForm() {
   }
 
   async function uploadPhotos(): Promise<string[]> {
-    if (!user || !storage || selectedFiles.length === 0) return [];
+    if (!user || selectedFiles.length === 0) return [];
     setUploadingPhotos(true);
     const urls: string[] = [];
     for (const file of selectedFiles) {
-      const path = `period_checkins/${user.uid}/${date}_${periodParam}_${Date.now()}_${file.name}`;
-      const ref = storageRef(storage, path);
-      await uploadBytes(ref, file);
-      const url = await getDownloadURL(ref);
+      const { url, publicId } = await uploadFile(file, `period_checkins/${user.uid}`);
       urls.push(url);
-      addGalleryPhotoRecord(user.uid, url, path, date).catch(() => {});
+      addGalleryPhotoRecord(user.uid, url, publicId, date).catch(() => {});
     }
     setUploadingPhotos(false);
     return urls;

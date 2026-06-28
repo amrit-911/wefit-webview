@@ -27,8 +27,7 @@ import {
   getPendingLibraryRequests, approveLibraryRequest, rejectLibraryRequest,
   type LibraryRequest,
 } from "@/lib/services/library-requests.service";
-import { storage } from "@/lib/firebase";
-import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
+import { uploadFile } from "@/lib/services/storage.service";
 
 const CATEGORIES = [
   "Pre-Workout","Post-Workout","Protein","Vitamins & Minerals",
@@ -111,10 +110,9 @@ export default function SupplementsPage() {
     setIsSubmitting(true);
     try {
       let imageUrl = form.imageUrl;
-      if (imageFile && storage) {
-        const path = `supplements/${Date.now()}_${imageFile.name}`;
-        const snap = await uploadBytes(storageRef(storage, path), imageFile);
-        imageUrl = await getDownloadURL(snap.ref);
+      if (imageFile) {
+        const { url } = await uploadFile(imageFile, "supplements");
+        imageUrl = url;
       }
       const payload: Omit<SupplementItem, "id" | "createdAt" | "updatedAt"> = {
         brand: form.brand.trim(), name: form.name.trim(),

@@ -15,8 +15,7 @@ import {
 import { toast } from "sonner";
 import { Loader2, Upload } from "lucide-react";
 import { useRef } from "react";
-import { storage } from "@/lib/firebase";
-import { ref as storageRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { uploadFile } from "@/lib/services/storage.service";
 import { updateProfile } from "firebase/auth";
 
 const COUNTRIES = [
@@ -55,14 +54,7 @@ export default function AdminProfilePage() {
     setUploadingPhoto(true);
 
     try {
-      const ref = storageRef(storage!, `admin/avatars/${user.uid}_${Date.now()}_${file.name}`);
-      const task = uploadBytesResumable(ref, file);
-      
-      await new Promise((resolve, reject) => {
-        task.on("state_changed", null, (error) => reject(error), () => resolve(undefined));
-      });
-      
-      const downloadUrl = await getDownloadURL(task.snapshot.ref);
+      const { url: downloadUrl } = await uploadFile(file, "admin/avatars", { publicId: user.uid });
       await updateProfile(user, { photoURL: downloadUrl });
       setPhotoUrl(downloadUrl);
       toast.success("Profile photo updated!");

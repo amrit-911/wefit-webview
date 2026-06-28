@@ -6,9 +6,9 @@ import { useState, useRef } from "react";
 import { ArrowLeft, Camera, Loader2, Upload, CheckCircle2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { db, storage } from "@/lib/firebase";
+import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { uploadFile } from "@/lib/services/storage.service";
 import { notifyAdminTrainerRequest } from "@/lib/services/notifications.service";
 import { toast } from "sonner";
 
@@ -42,26 +42,18 @@ export default function TrainerRegistrationPage() {
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, field: UploadField) => {
     const file = e.target.files?.[0];
-    if (!file || !storage) return;
+    if (!file) return;
 
     setUploads((prev) => ({ ...prev, [field]: { ...prev[field], uploading: true, name: file.name } }));
-    const storageRef = ref(storage, `trainer_requests/${Date.now()}_${file.name}`);
-    const task = uploadBytesResumable(storageRef, file);
-
-    task.on(
-      "state_changed",
-      null,
-      (err) => {
-        console.error(err);
-        toast.error(`Failed to upload ${field}`);
-        setUploads((prev) => ({ ...prev, [field]: { url: "", name: "", uploading: false } }));
-      },
-      async () => {
-        const url = await getDownloadURL(task.snapshot.ref);
-        setUploads((prev) => ({ ...prev, [field]: { url, name: file.name, uploading: false } }));
-        toast.success("File uploaded ✓");
-      }
-    );
+    try {
+      const { url } = await uploadFile(file, "trainer_requests");
+      setUploads((prev) => ({ ...prev, [field]: { url, name: file.name, uploading: false } }));
+      toast.success("File uploaded ✓");
+    } catch (err) {
+      console.error(err);
+      toast.error(`Failed to upload ${field}`);
+      setUploads((prev) => ({ ...prev, [field]: { url: "", name: "", uploading: false } }));
+    }
   };
 
   const onSubmit = async (data: any) => {
