@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/auth-provider";
 import { useEffect, useState } from "react";
 import { getMemberById } from "@/lib/services/members.service";
-import { PTRB_PAID_PLANS, daysUntilExpiry } from "@/lib/services/subscriptions.service";
+import { WEFIT_PAID_PLANS, daysUntilExpiry } from "@/lib/services/subscriptions.service";
 
 export default function RenewPlanPage() {
   const router = useRouter();
@@ -86,7 +86,7 @@ export default function RenewPlanPage() {
 
       {/* Plan Cards */}
       <div className="flex flex-col gap-3 mb-8">
-        {PTRB_PAID_PLANS.map((plan) => {
+        {WEFIT_PAID_PLANS.map((plan) => {
           const isSelected = currentPlan.toLowerCase() === plan.id.toLowerCase();
           return (
             <div

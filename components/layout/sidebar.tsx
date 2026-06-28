@@ -179,7 +179,7 @@ export function Sidebar() {
                   transition={{ duration: 0.2 }}
                   className="overflow-hidden"
                 >
-                  <p className="text-white font-bold text-sm leading-tight whitespace-nowrap">PTRB Fitness</p>
+                  <p className="text-white font-bold text-sm leading-tight whitespace-nowrap">WeFit Fitness</p>
                   <p className="text-white/40 text-xs whitespace-nowrap">Admin Panel</p>
                 </motion.div>
               )}
@@ -279,7 +279,7 @@ export function Sidebar() {
                   className="overflow-hidden"
                 >
                   <p className="text-white text-sm font-medium whitespace-nowrap">Admin User</p>
-                  <p className="text-white/40 text-xs whitespace-nowrap">admin@ptrb.in</p>
+                  <p className="text-white/40 text-xs whitespace-nowrap">admin@wefit.in</p>
                 </motion.div>
               )}
             </AnimatePresence>

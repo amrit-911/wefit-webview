@@ -1,7 +1,7 @@
   {
-  "name": "ptrb-functions",
+  "name": "wefit-functions",
   "version": "1.0.0",
-  "description": "PTRB Firebase Cloud Functions — Firestore trigger for FCM push notifications",
+  "description": "WeFit Firebase Cloud Functions — Firestore trigger for FCM push notifications",
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc",

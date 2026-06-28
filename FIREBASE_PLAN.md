@@ -1,4 +1,4 @@
-# PTRB — Firebase Integration Plan
+# WeFit — Firebase Integration Plan
 > Generated: March 14, 2026  
 > Status: Pre-implementation planning document
 

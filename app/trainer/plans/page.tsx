@@ -10,28 +10,28 @@ import { getTrainerById, daysUntilTrainerExpiry, TRAINER_PLANS } from "@/lib/ser
 const PLAN_CARDS = [
   {
     planId: "1 Month",
-    name: "PTRB SIGNATURE PLAN",
+    name: "WEFIT SIGNATURE PLAN",
     price: "999",
     period: "1 Month",
     features: ["Up To 20 Clients", "Workout Builder", "Basic Analytics"],
   },
   {
     planId: "3 Months",
-    name: "PTRB PRO",
+    name: "WEFIT PRO",
     price: "2,499",
     period: "3 Months",
     features: ["Up To 50 Clients", "Workout + Nutrition Builder", "Client Messaging", "Advance Analytics"],
   },
   {
     planId: "6 Months",
-    name: "PTRB ELITE",
+    name: "WEFIT ELITE",
     price: "4,499",
     period: "6 Months",
     features: ["Unlimited Clients", "Full Feature Access", "PDF Reports", "Dedicated Support"],
   },
   {
     planId: "1 Year",
-    name: "PTRB MASTER PLAN",
+    name: "WEFIT MASTER PLAN",
     price: "4,499",
     period: "1 Year",
     features: ["Unlimited Clients", "Full Feature Access", "PDF Reports", "Dedicated Support"],

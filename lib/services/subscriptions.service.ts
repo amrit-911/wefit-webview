@@ -57,7 +57,7 @@ export const PLAN_PRICES: Record<string, { price: string; amount: number; featur
   Elite:   { price: "₹4,999/mo", amount: 4999, features: ["Gym Access", "All Plans", "Unlimited PT", "Nutrition Coaching", "Locker"] },
 };
 
-export interface PtrbPlan {
+export interface WeFitPlan {
   id: string;
   name: string;
   duration: string;
@@ -66,19 +66,19 @@ export interface PtrbPlan {
   tag?: string;
 }
 
-export const PTRB_PLANS: PtrbPlan[] = [
-  { id: "7 Day Free Trial",    name: "7 Day Free Trial",    duration: "7 days",   days: 7,   price: null, tag: "Free Trial" },
-  { id: "14 Day Free Trial",   name: "14 Day Free Trial",   duration: "14 days",  days: 14,  price: null, tag: "Free Trial" },
-  { id: "PTRB Signature Plan", name: "PTRB Signature Plan", duration: "30 days",  days: 30,  price: 2999 },
-  { id: "PTRB Pro",            name: "PTRB Pro",            duration: "90 days",  days: 90,  price: 7999 },
-  { id: "PTRB Elite",          name: "PTRB Elite",          duration: "180 days", days: 180, price: 13999 },
+export const WEFIT_PLANS: WeFitPlan[] = [
+  { id: "7 Day Free Trial",     name: "7 Day Free Trial",     duration: "7 days",   days: 7,   price: null, tag: "Free Trial" },
+  { id: "14 Day Free Trial",    name: "14 Day Free Trial",    duration: "14 days",  days: 14,  price: null, tag: "Free Trial" },
+  { id: "WeFit Signature Plan", name: "WeFit Signature Plan", duration: "30 days",  days: 30,  price: 2999 },
+  { id: "WeFit Pro",            name: "WeFit Pro",            duration: "90 days",  days: 90,  price: 7999 },
+  { id: "WeFit Elite",          name: "WeFit Elite",          duration: "180 days", days: 180, price: 13999 },
 ];
 
-export const PTRB_PAID_PLANS = PTRB_PLANS.filter((p) => !p.tag?.includes("Trial"));
+export const WEFIT_PAID_PLANS = WEFIT_PLANS.filter((p) => !p.tag?.includes("Trial"));
 
 /** Returns ISO date string (YYYY-MM-DD) for when the plan expires from today */
 export function computeMembershipEnd(planId: string): string {
-  const plan = PTRB_PLANS.find((p) => p.id === planId);
+  const plan = WEFIT_PLANS.find((p) => p.id === planId);
   if (!plan) return "N/A";
   const d = new Date();
   d.setDate(d.getDate() + plan.days);

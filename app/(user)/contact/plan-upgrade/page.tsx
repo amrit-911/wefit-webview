@@ -5,7 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/auth-provider";
 import { getMemberById } from "@/lib/services/members.service";
-import { PTRB_PAID_PLANS } from "@/lib/services/subscriptions.service";
+import { WEFIT_PAID_PLANS } from "@/lib/services/subscriptions.service";
 import { submitContactRequest } from "@/lib/services/contact-requests.service";
 import { toast } from "sonner";
 
@@ -76,7 +76,7 @@ export default function UserPlanUpgradePage() {
           className="w-full bg-[#1c1c1e] border border-white/10 text-white text-[14px] font-semibold rounded-2xl px-4 py-3.5 appearance-none focus:outline-none focus:border-[#a3e635]"
         >
           <option value="" disabled>Choose a plan...</option>
-          {PTRB_PAID_PLANS.map((p) => (
+          {WEFIT_PAID_PLANS.map((p) => (
             <option key={p.id} value={p.id}>{p.name} — {p.duration}</option>
           ))}
         </select>

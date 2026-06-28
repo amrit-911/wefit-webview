@@ -84,7 +84,7 @@ exports.sendPushOnNotification = (0, firestore_1.onDocumentCreated)({
         const response = await admin.messaging().send({
             token: fcmToken,
             notification: {
-                title: title !== null && title !== void 0 ? title : "PTRB",
+                title: title !== null && title !== void 0 ? title : "WeFit",
                 body: body !== null && body !== void 0 ? body : "",
             },
             // Data payload — passed to Flutter even when app is terminated
@@ -95,7 +95,7 @@ exports.sendPushOnNotification = (0, firestore_1.onDocumentCreated)({
             },
             android: {
                 notification: {
-                    channelId: "ptrb_default",
+                    channelId: "wefit_default",
                     priority: "high",
                     sound: "default",
                     icon: "ic_launcher",

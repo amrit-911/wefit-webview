@@ -127,7 +127,7 @@ export const sendPushOnNotification = functions.firestore
     await admin.messaging().send({
       token: fcmToken,
       notification: {
-        title: title ?? "PTRB",
+        title: title ?? "WeFit",
         body: body ?? "",
       },
       data: {
@@ -138,7 +138,7 @@ export const sendPushOnNotification = functions.firestore
       },
       android: {
         notification: {
-          channelId: "ptrb_default",
+          channelId: "wefit_default",
           priority: "high",
           sound: "default",
         },
@@ -177,7 +177,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // No code needed here unless you want custom handling
 }
 
-class _PtrbWebViewState extends State<PtrbWebView> {
+class _WeFitWebViewState extends State<WeFitWebView> {
   late InAppWebViewController _controller;
 
   @override
@@ -265,7 +265,7 @@ dependencies:
 <!-- FCM default notification channel -->
 <meta-data
     android:name="com.google.firebase.messaging.default_notification_channel_id"
-    android:value="ptrb_default"/>
+    android:value="wefit_default"/>
 
 <!-- FCM default notification icon (optional, use your app icon) -->
 <meta-data
@@ -283,8 +283,8 @@ if (Platform.isAndroid) {
         AndroidFlutterLocalNotificationsPlugin>()
     ?.createNotificationChannel(
       const AndroidNotificationChannel(
-        'ptrb_default',
-        'PTRB Notifications',
+        'wefit_default',
+        'WeFit Notifications',
         description: 'Trainer feedback, plan updates, subscription alerts',
         importance: Importance.high,
       ),
@@ -342,4 +342,4 @@ The `notifications.service.ts` already writes everything correctly. The Cloud Fu
 
 ---
 
-*Plan for PTRB project — FCM integration via Firestore trigger pattern*
+*Plan for WeFit project — FCM integration via Firestore trigger pattern*

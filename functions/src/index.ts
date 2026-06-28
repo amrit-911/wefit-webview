@@ -69,7 +69,7 @@ export const sendPushOnNotification = onDocumentCreated(
       const response = await admin.messaging().send({
         token: fcmToken,
         notification: {
-          title: title ?? "PTRB",
+          title: title ?? "WeFit",
           body: body ?? "",
         },
         // Data payload — passed to Flutter even when app is terminated
@@ -80,7 +80,7 @@ export const sendPushOnNotification = onDocumentCreated(
         },
         android: {
           notification: {
-            channelId: "ptrb_default",
+            channelId: "wefit_default",
             priority: "high",
             sound: "default",
             icon: "ic_launcher",

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { getMembers, addMemberWithAuth, updateMember, deleteMember, type Member } from "@/lib/services/members.service";
-import { PTRB_PLANS, computeMembershipEnd } from "@/lib/services/subscriptions.service";
+import { WEFIT_PLANS, computeMembershipEnd } from "@/lib/services/subscriptions.service";
 import { updateAuthEmail } from "@/lib/services/auth-admin.service";
 import { notifyAdminClientAdded } from "@/lib/services/notifications.service";
 import { useAuth } from "@/providers/auth-provider";
@@ -300,7 +300,7 @@ export default function MembersPage() {
                       <Select value={newMember.plan || undefined} onValueChange={(val) => setNewMember({ ...newMember, plan: val })}>
                         <SelectTrigger className="h-10 border-gray-200 text-sm text-[#b9b9c3]"><SelectValue placeholder="Select Your Plan" /></SelectTrigger>
                         <SelectContent>
-                          {PTRB_PLANS.map((p) => (
+                          {WEFIT_PLANS.map((p) => (
                             <SelectItem key={p.id} value={p.id}>
                               {p.name} — {p.tag ?? `${p.price?.toLocaleString("en-IN")} ₹`}
                             </SelectItem>

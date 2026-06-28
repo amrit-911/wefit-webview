@@ -97,9 +97,9 @@ export default function LoginPage() {
         {/* Welcome Text */}
         <div className="text-center mb-8 flex flex-col items-center">
           {/* crop logo to circle */}
-          <Image src="/images/ptrb_logo.jpeg" className="rounded-full" alt="PTRB Logo" width={100} height={100} />
+          <Image src="/wefit_logo.jpg" className="rounded-full" alt="WeFit Logo" width={100} height={100} />
           <h1 className="text-[26px] font-extrabold text-white mb-0.5 tracking-wide drop-shadow-md">
-            Welcome to <span className="text-[#a3e635]">PTRB</span>
+            Welcome to <span className="text-[#a3e635]">WeFit</span>
           </h1>
           <p className="text-[13px] text-gray-300 font-medium tracking-wider">
             sign in to continue your journey

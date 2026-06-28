@@ -30,7 +30,7 @@ export default function AdminProfilePage() {
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
 
   const [formData, setFormData] = useState({
-    firstName: "PTRB",
+    firstName: "WeFit",
     lastName: "Fitness",
     phone: "0899617518",
     country: "Ireland",
@@ -76,7 +76,7 @@ export default function AdminProfilePage() {
 
   const handleReset = () => {
     setFormData({
-      firstName: "PTRB",
+      firstName: "WeFit",
       lastName: "Fitness",
       phone: "0899617518",
       country: "Ireland",
@@ -86,7 +86,7 @@ export default function AdminProfilePage() {
     toast.info("Form reset to original values.");
   };
 
-  const email = user?.email || "admin@ptrbfitness.com";
+  const email = user?.email || "admin@wefitfitness.com";
 
   return (
     <div className="space-y-6">
@@ -114,7 +114,7 @@ export default function AdminProfilePage() {
               <img src={photoUrl} alt="Admin Logo" className="w-full h-full object-cover" />
             ) : (
               <div className="absolute inset-0 bg-[#f8f8f8] flex flex-col items-center justify-center text-gray-400">
-                 <span className="text-[10px] uppercase font-bold text-[#5e5873]">PTRB</span>
+                 <span className="text-[10px] uppercase font-bold text-[#5e5873]">WeFit</span>
                  <span className="text-[10px] uppercase font-bold text-[#5e5873]">FITNESS</span>
               </div>
             )}

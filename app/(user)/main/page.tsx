@@ -19,7 +19,7 @@ import { getBannerSettings } from "@/lib/services/banner.service";
 import { getTickerSettings } from "@/lib/services/ticker.service";
 import { TickerTape } from "@/components/ui/ticker-tape";
 import { getMemberById } from "@/lib/services/members.service";
-import { daysUntilExpiry, PTRB_PLANS } from "@/lib/services/subscriptions.service";
+import { daysUntilExpiry, WEFIT_PLANS } from "@/lib/services/subscriptions.service";
 import { useRouter } from "next/navigation";
 import type { PeriodType } from "@/lib/services/checkin.service";
 
@@ -436,16 +436,16 @@ export default function MainPage() {
         let displayPlanName = memberPlan;
         let displayDuration = "";
 
-        const matchingPlan = PTRB_PLANS.find(p => p.id.toLowerCase() === memberPlan.toLowerCase());
+        const matchingPlan = WEFIT_PLANS.find(p => p.id.toLowerCase() === memberPlan.toLowerCase());
         if (matchingPlan) {
           displayPlanName = matchingPlan.name;
           displayDuration = matchingPlan.duration;
         } else {
           // Legacy mapping
           const mp = memberPlan.toLowerCase();
-          if (mp.includes("1 month")) { displayPlanName = "PTRB Signature Plan"; displayDuration = "1 Month"; }
-          else if (mp.includes("3 month")) { displayPlanName = "PTRB Pro"; displayDuration = "3 Months"; }
-          else if (mp.includes("6 month")) { displayPlanName = "PTRB Elite"; displayDuration = "6 Months"; }
+          if (mp.includes("1 month")) { displayPlanName = "WeFit Signature Plan"; displayDuration = "1 Month"; }
+          else if (mp.includes("3 month")) { displayPlanName = "WeFit Pro"; displayDuration = "3 Months"; }
+          else if (mp.includes("6 month")) { displayPlanName = "WeFit Elite"; displayDuration = "6 Months"; }
         }
 
         return (

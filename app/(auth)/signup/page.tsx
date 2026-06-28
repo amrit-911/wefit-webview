@@ -95,7 +95,7 @@ export default function SignupPage() {
         <div className="text-center mb-8 flex flex-col items-center">
           <div className="w-[45px] h-[45px] rounded-full bg-[#a3e635] mb-3 shadow-[0_0_15px_rgba(163,230,53,0.5)]"></div>
           <p className="text-[13px] text-gray-300 font-medium tracking-wider mb-1">
-            Welcome to <span className="text-[#a3e635]">PTRB</span>
+            Welcome to <span className="text-[#a3e635]">WeFit</span>
           </p>
           <h1 className="text-[26px] font-extrabold text-white mb-0.5 tracking-wide drop-shadow-md">
             Create Account

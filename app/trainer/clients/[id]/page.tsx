@@ -5,7 +5,7 @@ import { ArrowLeft, Dumbbell, Apple, BarChart, Bell, RefreshCw, Phone, Mail, Pow
 import { useRouter, useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { getMemberById, updateMember, updateMemberStatus, type Member } from "@/lib/services/members.service";
-import { PTRB_PLANS, computeMembershipEnd } from "@/lib/services/subscriptions.service";
+import { WEFIT_PLANS, computeMembershipEnd } from "@/lib/services/subscriptions.service";
 import { getCheckins, getPeriodCheckins, type CheckinData } from "@/lib/services/checkin.service";
 import { getPersonalGoal, deletePersonalGoal, computeCountdown, type PersonalGoal } from "@/lib/services/personal-goal.service";
 import { getClientNutritionPlan, getMealLog, type MealSection } from "@/lib/services/client-nutrition.service";
@@ -28,7 +28,7 @@ export default function ClientDetailPage() {
   const [showStatusModal, setShowStatusModal] = useState(false);
   const [togglingStatus, setTogglingStatus] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [editForm, setEditForm] = useState({ goalWeight: "", plan: PTRB_PLANS[0].id });
+  const [editForm, setEditForm] = useState({ goalWeight: "", plan: WEFIT_PLANS[0].id });
   const [savingEdit, setSavingEdit] = useState(false);
   const [personalGoal, setPersonalGoal] = useState<PersonalGoal | null>(null);
   const [deletingGoal, setDeletingGoal] = useState(false);
@@ -163,7 +163,7 @@ export default function ClientDetailPage() {
               onClick={() => {
                 setEditForm({
                   goalWeight: client.goalWeight ? String(client.goalWeight) : "",
-                  plan: client.plan || PTRB_PLANS[0].id,
+                  plan: client.plan || WEFIT_PLANS[0].id,
                 });
                 setShowEditModal(true);
               }}
@@ -556,7 +556,7 @@ export default function ClientDetailPage() {
                     MEMBERSHIP PLAN
                   </label>
                   <div className="flex flex-wrap gap-2">
-                    {PTRB_PLANS.map((p) => (
+                    {WEFIT_PLANS.map((p) => (
                       <button
                         key={p.id}
                         type="button"

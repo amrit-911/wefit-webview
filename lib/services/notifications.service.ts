@@ -88,6 +88,19 @@ async function createNotification(payload: Omit<AppNotification, "id" | "created
   if (!db) return;
   const ref = doc(collection(db, COL));
   await setDoc(ref, { ...payload, read: false, createdAt: serverTimestamp() });
+
+  // Fire-and-forget OS push — runs on our own API route (no Cloud Functions / Blaze needed)
+  fetch("/api/notifications/send-push", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      recipientId: payload.recipientId,
+      title: payload.title,
+      body: payload.body,
+      linkPath: payload.linkPath,
+      type: payload.type,
+    }),
+  }).catch(() => {});
 }
 
 // ─────────────────────────────────────────────────────────────

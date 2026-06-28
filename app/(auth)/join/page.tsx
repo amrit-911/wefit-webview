@@ -33,12 +33,12 @@ export default function JoinPage() {
         <div className="flex-1" />
 
         <div className="text-center mb-10 flex flex-col items-center">
-        <Image src="/images/ptrb_logo.jpeg" className="rounded-full" alt="PTRB Logo" width={100} height={100} />
+        <Image src="/wefit_logo.jpg" className="rounded-full" alt="WeFit Logo" width={100} height={100} />
           <h1 className="text-[32px] font-extrabold text-white mb-1 tracking-wide drop-shadow-md">
             Join Us
           </h1>
           {/* <p className="text-[14px] text-white font-medium tracking-wider">
-            Choose how you want to use <span className="text-[#a3e635] font-bold">PTRB</span>
+            Choose how you want to use <span className="text-[#a3e635] font-bold">WeFit</span>
           </p> */}
         </div>
 

@@ -1,8 +1,8 @@
-# PTRB Flutter WebView Integration Guide
+# WeFit Flutter WebView Integration Guide
 
-> **Audience:** Flutter developer building the native shell around the PTRB Next.js web app.  
+> **Audience:** Flutter developer building the native shell around the WeFit Next.js web app.  
 > **Web stack:** Next.js 15 App Router · TypeScript · Firebase Auth/Firestore/Storage · Tailwind CSS  
-> **Storage bucket:** `ptrb-c992e.appspot.com`
+> **Storage bucket:** `wefit-b8e91.appspot.com`
 
 ---
 
@@ -29,7 +29,7 @@
 
 ## 1. Overview & Architecture
 
-The PTRB web app is a **full-stack Next.js application** that handles:
+The WeFit web app is a **full-stack Next.js application** that handles:
 
 - **Authentication** — Firebase Auth (email/password). Sign-up, login, onboarding flows are all web screens.
 - **User roles** — `member`, `trainer`, `admin` (determined in Firestore, enforced in `lib/user-roles.ts`).
@@ -170,7 +170,7 @@ Create a `cors.json` file:
 Apply it to the storage bucket:
 
 ```bash
-gsutil cors set cors.json gs://ptrb-c992e.appspot.com
+gsutil cors set cors.json gs://wefit-b8e91.appspot.com
 ```
 
 > **Note:** If you prefer a tighter policy, replace `"*"` with your production domain: `"https://your-domain.com"`. For WebView on Android, also add `"null"` (since Android WebView may send `Origin: null`).
@@ -230,15 +230,15 @@ Create `android/app/src/main/res/xml/file_paths.xml`:
 ```xml
 <!-- Camera access -->
 <key>NSCameraUsageDescription</key>
-<string>PTRB needs camera access to update your profile photo.</string>
+<string>WeFit needs camera access to update your profile photo.</string>
 
 <!-- Photo library access -->
 <key>NSPhotoLibraryUsageDescription</key>
-<string>PTRB needs photo library access to update your profile photo.</string>
+<string>WeFit needs photo library access to update your profile photo.</string>
 
 <!-- Photo library add (for saving) -->
 <key>NSPhotoLibraryAddUsageDescription</key>
-<string>PTRB needs permission to save photos.</string>
+<string>WeFit needs permission to save photos.</string>
 ```
 
 ### Runtime Permission Request (Flutter)
@@ -480,18 +480,18 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class PtrbWebView extends StatefulWidget {
-  const PtrbWebView({super.key});
+class WeFitWebView extends StatefulWidget {
+  const WeFitWebView({super.key});
 
   @override
-  State<PtrbWebView> createState() => _PtrbWebViewState();
+  State<WeFitWebView> createState() => _WeFitWebViewState();
 }
 
-class _PtrbWebViewState extends State<PtrbWebView> {
+class _WeFitWebViewState extends State<WeFitWebView> {
   late InAppWebViewController _controller;
 
   // ⬇️ CHANGE THIS to your production Next.js URL
-  static const String _baseUrl = "https://your-ptrb-domain.com";
+  static const String _baseUrl = "https://your-wefit-domain.com";
 
   @override
   void initState() {
@@ -602,7 +602,7 @@ Full `android/app/src/main/AndroidManifest.xml` additions:
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-        android:label="PTRB"
+        android:label="WeFit"
         android:usesCleartextTraffic="true"
         ...>
 
@@ -647,16 +647,16 @@ Add to `ios/Runner/Info.plist`:
 
 ```xml
 <key>NSCameraUsageDescription</key>
-<string>PTRB needs camera access to update your profile photo.</string>
+<string>WeFit needs camera access to update your profile photo.</string>
 
 <key>NSPhotoLibraryUsageDescription</key>
-<string>PTRB needs photo library access to update your profile photo.</string>
+<string>WeFit needs photo library access to update your profile photo.</string>
 
 <key>NSPhotoLibraryAddUsageDescription</key>
-<string>Allow PTRB to save photos to your library.</string>
+<string>Allow WeFit to save photos to your library.</string>
 
 <key>NSMicrophoneUsageDescription</key>
-<string>PTRB may need microphone access for video features.</string>
+<string>WeFit may need microphone access for video features.</string>
 
 <!-- Allow loading content from Firebase domains -->
 <key>NSAppTransportSecurity</key>
@@ -683,7 +683,7 @@ Save this as `cors.json` anywhere on your machine, then run the `gsutil` command
 [
   {
     "origin": [
-      "https://your-ptrb-domain.com",
+      "https://your-wefit-domain.com",
       "null"
     ],
     "method": ["GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"],
@@ -707,13 +707,13 @@ Apply:
 gcloud auth login
 
 # Apply CORS
-gsutil cors set cors.json gs://ptrb-c992e.appspot.com
+gsutil cors set cors.json gs://wefit-b8e91.appspot.com
 
 # Verify
-gsutil cors get gs://ptrb-c992e.appspot.com
+gsutil cors get gs://wefit-b8e91.appspot.com
 ```
 
-> Replace `https://your-ptrb-domain.com` with the actual deployed URL. The `"null"` entry covers Android WebView requests where origin is null.
+> Replace `https://your-wefit-domain.com` with the actual deployed URL. The `"null"` entry covers Android WebView requests where origin is null.
 
 ---
 
@@ -813,4 +813,4 @@ The Flutter WebView loads the base URL and then the Next.js app handles all rout
 
 ---
 
-*Generated for PTRB project — Next.js + Firebase stack*
+*Generated for WeFit project — Next.js + Firebase stack*

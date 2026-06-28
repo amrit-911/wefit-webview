@@ -100,9 +100,9 @@ export default function AdminLoginPage() {
             <div className="absolute -top-6 -right-6 w-28 h-28 rounded-full bg-white/10 pointer-events-none" />
             <div className="absolute -bottom-4 -left-4 w-20 h-20 rounded-full bg-white/10 pointer-events-none" />
 
-              <div className="w-14 h-14 mx-auto text-black bg-white font-bold rounded-full flex items-center justify-center">PTRB</div>
+              <div className="w-14 h-14 mx-auto text-black bg-white font-bold rounded-full flex items-center justify-center">WeFit</div>
             <h1 className="text-xl font-bold text-white tracking-wide">Admin Portal</h1>
-            <p className="text-white/70 text-[13px] mt-1">Welcome to PTRB Fitness!</p>
+            <p className="text-white/70 text-[13px] mt-1">Welcome to WeFit Fitness!</p>
           </div>
 
           {/* Form */}
@@ -128,7 +128,7 @@ export default function AdminLoginPage() {
                 <input
                   type="email"
                   autoComplete="email"
-                  placeholder="admin@ptrb.com"
+                  placeholder="admin@wefit.com"
                   {...register("email")}
                   className="w-full h-11 rounded-lg border border-gray-200 bg-gray-50 px-4 text-[14px] text-[#5e5873] placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-[#7367f0]/30 focus:border-[#7367f0] transition-all"
                 />
@@ -195,7 +195,7 @@ export default function AdminLoginPage() {
 
         {/* Footer */}
         <p className="text-center text-[11px] text-gray-400 mt-5">
-          PTRB FITNESS · Admin Panel · All rights reserved
+          WeFit Fitness · Admin Panel · All rights reserved
         </p>
       </motion.div>
     </div>

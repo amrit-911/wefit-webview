@@ -38,10 +38,10 @@ export interface TrainerPlan {
 }
 
 export const TRAINER_PLANS: TrainerPlan[] = [
-  { id: "1 Month",  name: "PTRB Signature Plan (1 Month)",  months: 1,  days: 30  },
-  { id: "3 Months", name: "PTRB Pro (3 Months)",            months: 3,  days: 90  },
-  { id: "6 Months", name: "PTRB Elite (6 Months)",          months: 6,  days: 180 },
-  { id: "1 Year",   name: "PTRB Master Plan (1 Year)",      months: 12, days: 365 },
+  { id: "1 Month",  name: "WeFit Signature Plan (1 Month)",  months: 1,  days: 30  },
+  { id: "3 Months", name: "WeFit Pro (3 Months)",            months: 3,  days: 90  },
+  { id: "6 Months", name: "WeFit Elite (6 Months)",          months: 6,  days: 180 },
+  { id: "1 Year",   name: "WeFit Master Plan (1 Year)",      months: 12, days: 365 },
 ];
 
 /** Returns DD/MM/YYYY expiry date string for a trainer plan starting from today */

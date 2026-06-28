@@ -131,10 +131,10 @@ export function Navbar() {
             {/* Logo */}
             <Link href="/admin" className="flex items-center gap-2.5 shrink-0">
               <div className="w-9 h-9 rounded-full bg-white border-2 border-gray-200 flex items-center justify-center overflow-hidden">
-                <span className="text-[10px] font-extrabold text-[#5e5873] leading-none">PTRB</span>
+                <span className="text-[10px] font-extrabold text-[#5e5873] leading-none">WeFit</span>
               </div>
               <span className="text-base font-bold tracking-wide text-[#5e5873] uppercase">
-                PTRB FITNESS
+                WeFit Fitness
               </span>
             </Link>
 
@@ -268,7 +268,7 @@ export function Navbar() {
                       {user?.email ? user.email.charAt(0).toUpperCase() : "A"}
                     </div>
                     <div className="flex flex-col flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-[#5e5873] truncate">PTRB</p>
+                      <p className="text-sm font-semibold text-[#5e5873] truncate">WeFit</p>
                       <p className="text-xs text-gray-500 truncate">Admin</p>
                     </div>
                   </div>

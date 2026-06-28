@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useAuth } from "@/providers/auth-provider";
 import { addMemberWithAuth } from "@/lib/services/members.service";
 import { notifyAdminTrainerAddedClient } from "@/lib/services/notifications.service";
-import { PTRB_PLANS, computeMembershipEnd } from "@/lib/services/subscriptions.service";
+import { WEFIT_PLANS, computeMembershipEnd } from "@/lib/services/subscriptions.service";
 
 export default function AddClientPage() {
 	const router = useRouter();
@@ -23,7 +23,7 @@ export default function AddClientPage() {
 		height: "",
 		startingWeight: "",
 		targetWeight: "",
-		plan: PTRB_PLANS[0].id,
+		plan: WEFIT_PLANS[0].id,
 		goal: "",
 		injuryNote: "",
 	});
@@ -296,7 +296,7 @@ export default function AddClientPage() {
 								MEMBERSHIP PLAN <span className="text-[#a3e635]">*</span>
 							</label>
 							<div className="flex flex-wrap gap-2">
-								{PTRB_PLANS.map((p) => (
+								{WEFIT_PLANS.map((p) => (
 									<button
 										key={p.id}
 										type="button"

@@ -8,10 +8,10 @@ import { submitContactRequest } from "@/lib/services/contact-requests.service";
 import { toast } from "sonner";
 
 const TRAINER_PLANS = [
-  { id: "PTRB Signature Plan", name: "PTRB Signature Plan", period: "1 Month" },
-  { id: "PTRB Pro", name: "PTRB Pro", period: "3 Months" },
-  { id: "PTRB Elite", name: "PTRB Elite", period: "6 Months" },
-  { id: "PTRB Master Plan", name: "PTRB Master Plan", period: "1 Year" },
+  { id: "WeFit Signature Plan", name: "WeFit Signature Plan", period: "1 Month" },
+  { id: "WeFit Pro", name: "WeFit Pro", period: "3 Months" },
+  { id: "WeFit Elite", name: "WeFit Elite", period: "6 Months" },
+  { id: "WeFit Master Plan", name: "WeFit Master Plan", period: "1 Year" },
 ];
 
 export default function TrainerPlanUpgradePage() {

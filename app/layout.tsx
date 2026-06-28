@@ -6,8 +6,8 @@ import { Toaster } from "sonner";
 
 
 export const metadata: Metadata = {
-  title: "PTRB Fitness Point",
-  description: "Admin dashboard for PTRB Fitness Point – manage members, trainers, plans, and more.",
+  title: "WeFit Fitness Point",
+  description: "Admin dashboard for WeFit Fitness Point – manage members, trainers, plans, and more.",
 };
 
 export default function RootLayout({
