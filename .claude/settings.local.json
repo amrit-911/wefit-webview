@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem \"c:\\\\sparkspare\\\\ptrb-lalit\\\\ptrb\\\\app\\\\trainer\\\\clients\\\\[id]\" -Recurse -Name)",
+      "Bash(Get-ChildItem -Path \"c:\\\\work\\\\prsnl\\\\ptrb\" -Directory)",
+      "Bash(Select-Object Name)",
+      "Bash(grep -E \"\\\\.\\(ts|tsx\\)$\")",
+      "Bash(grep -E \"\\\\.\\(ts|tsx|js|prisma\\)$\")",
+      "Bash(grep -E \"\\\\.\\(ts|tsx|js\\)$\")",
+      "Bash(Get-ChildItem -Path \"c:\\\\sparkspare\\\\ptrb-lalit\\\\ptrb\" -Directory)",
+      "Bash(Get-ChildItem -Path . -Directory)",
+      "Bash(plan\" | head -20)",
+      "PowerShell(Get-ChildItem -Path \"c:\\\\sparkspare\\\\ptrb-lalit\\\\ptrb\" -Recurse -Directory | Select-Object -First 20 | ForEach-Object { $_.FullName })",
+      "Bash(Get-ChildItem -Path \"c:\\\\sparkspare\\\\ptrb-lalit\\\\ptrb\\\\functions\\\\src\" -File -Recurse)",
+      "Bash(Select-Object -First 20)"
+    ]
+  }
+}
